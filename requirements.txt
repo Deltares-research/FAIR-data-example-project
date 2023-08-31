@@ -1,0 +1,22 @@
+cookiecutter==2.1.1
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+datrie==0.8.2
+docutils==0.20.1
+dpath==2.1.6
+et-xmlfile==1.1.0
+fastjsonschema==2.17.1
+Fiona==1.9.4.post1
+fonttools==4.25.0
+geopandas==0.13.2
+gitdb==4.0.10
+GitPython==3.1.31
+graphviz==0.20.1
+humanfriendly==10.0
+idna==3.4
+importlib-metadata==6.6.0
+importlib-resources @ file:///tmp/build/80754af9/importlib_resources_1625135880749/work
+Jinja2==3.1.2
+Mako
+numpy 
+pandas 
+snakemake

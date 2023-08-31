@@ -4,14 +4,9 @@ $ Gebied                           : VZM
 $ Windsnelheid U10 voor SWAN       : ${'%2.2f' % wind_speed} m/s
 $ Windrichting                     : ${'%2.2f' % wind_dir} gr 
 $ Waterstand t.o.v. N.A.P.         : +0 m 
-$ Variant			   : ${'%s' % variant}	
-$ rooster resolutie 20 m x 20 m
-$ template opgesteld voor SWAN-versie 41.31.A1-deltares dd mei 2021
-$ t.b.v. BOI berekeningen 2023 op het Volkerak-Zoommeer
+$ Variant                          : ${'%s' % variant}	
 
 $******************************************************************
-
-PROJECT 'BOI2023','vzm' 
 
 $------------- algemeen -----------
 
@@ -25,69 +20,36 @@ CGRID   XPC=69415 YPC=378668 ALPC=0  XLENC=17900 YLENC=34420 &
         MXC=895 MYC=1721 CIRCLE  MDC=72 FLOW=0.06 FHIGH=2.4
 
 INPGRID BOT XPINP=69415 YPINP=378668 ALPINP=0 MXINP=895  MYINP=1721 DXINP=20. DYINP=20. EXC=999.0
-READINP BOT -1.0 '../../3-input/vzm-j19_6-v1a_20m.bot' IDLA=5 NHEDF=0 FREE
+READINP BOT -1.0 '../../3-input/bed.bot' IDLA=5 NHEDF=0 FREE
 
 WIND	${'%2.2f' % wind_speed} ${'%2.2f' % wind_dir} DRAG WU
 
-INCLUDE '../../3-input/vzm-j19_6-v1a_20m.fxw'
+INCLUDE '../../3-input/obs.fxw'
 
 $------------- fysica & numeriek -----------
 
 GEN3 	WESTH
-WCAP 	WESTH      cds2=5.0e-05 br=0.00175   p0=4.0   powst=0.0 powk=0.0 nldisp=0.0 cds3=0.8 powfsh=1.0
-QUAD 	iquad=2    lambda=0.25  Cnl4=3.0e+07 Csh1=5.5 Csh3=-1.25
-BREA 	WESTH      alpha=0.96 pown=2.5 bref=-1.39630 shfac=500.0 
-FRIC 	JONSWAP    cfjon=0.0380000
-TRIAD	trfac=0.05 cutfr=2.5
+WCAP 	WESTH      
+QUAD 	iquad=2    
+BREA 	WESTH      
+FRIC 	JONSWAP    
 
-NUMERIC STOPC DABS=0.005 DREL=0.01 CURVAT=0.001 NPNTS=101 STAT MXITST=80 alfa=0.001
+
+NUMERIC STOPC DABS=0.005 DREL=0.01 CURVAT=0.001 NPNTS=101 STAT MXITST=1 
  
 $------------- uitvoer -----------
 
 BLOCK   'COMPGRID'  NOHEAD  '${'%s' % fname}.nc' LAY-OUT 3 &
           XP YP BOTLEV HSIG TPS RTP TMM10 TM01 TM02 DIR DSPR DHS DRTM01 WATLEV WIND WLEN
 
-POINTS 'P1' FILE '../../3-input/output_locations/p1.xyn'
+POINTS 'P1' FILE '../../3-input/p1.xyn'
 TABLE  'P1' HEAD '${'%s' % fname}_p1.tab' XP YP DEP HSIG TPS TMM10 TM01 TM02 & 
 		  DIR DSPR DHS DRTM01 WATLEV WIND WLEN FORCE UBOT
 
-POINTS 'P2' FILE '../../3-input/output_locations/p2.xyn'
+POINTS 'P2' FILE '../../3-input/p2.xyn'
 TABLE  'P2' HEAD '${'%s' % fname}_p2.tab' XP YP DEP HSIG TPS TMM10 TM01 TM02 & 
 		  DIR DSPR DHS DRTM01 WATLEV WIND WLEN FORCE UBOT
 
-		  
-SPEC   'P2' SPEC1D ABS '${'%s' % fname}_p2.sp1'  
-SPEC   'P2' SPEC2D ABS '${'%s' % fname}_p2.sp2'  
-
-SPEC   'P1' SPEC1D ABS '${'%s' % fname}_p1.sp1'  
-SPEC   'P1' SPEC2D ABS '${'%s' % fname}_p1.sp2'  
-
-CURve 'curve1' 78710 407000 150 78710 404000
-CURve 'curve2' 71500 402810 110 73700 402810
-CURve 'curve3' 73600 384560 70 75000 384560
-CURve 'curve4' 73000 391000 70 72000 390000
-CURve 'curve5' 73050 408400 120 71300 406500
-CURve 'curve6' 77000 406000 150 77000 409000
-
-TABLE  'curve1' HEAD '${'%s' % fname}_c1.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-TABLE  'curve2' HEAD '${'%s' % fname}_c2.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-TABLE  'curve3' HEAD '${'%s' % fname}_c3.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-TABLE  'curve4' HEAD '${'%s' % fname}_c4.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-TABLE  'curve5' HEAD '${'%s' % fname}_c5.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-TABLE  'curve6' HEAD '${'%s' % fname}_c6.tab' XP YP DEP HSIG TMM10 DIR DSPR WATLEV WIND DHS DRTM01
-
-TEST 	1 0 POINTS XY  74210     407020 &
-			 71130     409020 &
-			 73090     406320 &
-			 85380     411540 &
-			 78040     407360 &
-			 76830     405470 &
-			 72670     400260 &
-			 72490     390930 &
-			 74780     391570 &
-			 74350     388970 PAR '${'%s' % fname}.tst' &
-			 S1D '${'%s' % fname}.s1d' &
-			 S2D '${'%s' % fname}.s2d'
 
 COMPUTE STATIONARY
 STOP
