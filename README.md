@@ -82,4 +82,4 @@ Not all rules are submitted to the cluster. The localrules keyword in the snakef
 
 To run this demo project locally  run:
 
-`snakemake --cores 1`
+`snakemake --cores 1 --snakefile snakefile_win`
