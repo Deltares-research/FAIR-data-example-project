@@ -66,10 +66,10 @@ To update the data from the n-drive use:
 
 Manage the worklow
 --------------------
-Snakemake is used to manage the workflow. This example can be executed both on the H6 or locally.
+Snakemake is used to manage the workflow. This example can be executed both on the H6 or locally. In the snakefile it can be specified whether the simulation is perfomred on windows (`win=True`) or Linux (`win=False`).
 
 
-To run this demo project on the h6 run:
+To run this demo project on the h6 run (`win=False`):
 
 `snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml `
 
@@ -80,6 +80,6 @@ The maximum number of jobs is specified with `--jobs`
 Not all rules are submitted to the cluster. The localrules keyword in the snakefile can be used to specify the rules to be executed immediately.
 `localrules: create_sims, grid, locations`
 
-To run this demo project locally  run:
+To run this demo project locally  run (`win=True`):
 
-`snakemake --cores 1 --snakefile snakefile_win`
+`snakemake --cores 1 --snakefile snakefile`
