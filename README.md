@@ -3,7 +3,18 @@ Demo project FAIR-data with cluster
 
 Description
 --------------------
-This is a dummy project to demonstrate how snakemake can be used with the h6 cluster.
+This is a dummy project to demonstrate the Deltares FAIR-data Cookbook.
+
+Both a workflow for the H6 cluster and a workflow to run locally are available.
+
+
+Scripting
+--------------------
+To apply the cookbook Python is required. 
+
+To install the required packages the following command can be used:
+
+`pip install requirements.txt`
 
 Snakemake
 --------------------
