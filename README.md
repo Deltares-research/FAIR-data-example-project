@@ -68,6 +68,7 @@ Snakemake is used to manage the workflow. This example can be executed both on t
 
 
 To run this demo project on the h6 run:
+
 `snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml `
 
 The flag `--cluster` specifies the command to sumbit a job to a cluster. 
@@ -78,4 +79,5 @@ Not all rules are submitted to the cluster. The localrules keyword in the snakef
 `localrules: create_sims, grid, locations`
 
 To run this demo project locally  run:
+
 `snakemake --cores 1`
