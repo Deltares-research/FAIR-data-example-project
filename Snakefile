@@ -7,22 +7,33 @@ localrules: create_sims, grid, locations # these rules are not submitted
 ## TODO this list also in the script create sims. How to access this list in a python script?
 wind_speed_list           = [30, 20]
 
+win = True
 
 ####End result####
 
 rule all:
     input:
-        output_bot=os.path.join('data','3-input','bed.bot'),
-        output_fxw=os.path.join('data','3-input','obs.fxw'),
-        output_p1=os.path.join('data','3-input','p1.xyn'),
-        output_p2=os.path.join('data','3-input','p2.xyn'),
-        path_sims=expand("data/4-output/U{wind_speed}/U{wind_speed}.swn",  wind_speed=wind_speed_list),
-        res=expand("data/4-output/U{wind_speed}/U{wind_speed}_p1.tab",  wind_speed=wind_speed_list)
+        path_fig=expand("reports/U{wind_speed}.png",  wind_speed=wind_speed_list),
+rule analyse:
+    input:
+        path="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
+    output:
+        path_fig="reports/U{wind_speed}.png"
+    script:
+        os.path.join('src','4-analyze','analyse.py')
 
 rule run:
+    input:
+        output_bot=os.path.join('data','3-input','bed.bot'),
+        output_p1=os.path.join('data','3-input','p1.xyn'),
+        path_sims=expand("data/4-output/U{wind_speed}/U{wind_speed}.swn",  wind_speed=wind_speed_list)
     output:
         res="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
-    shell: "data/4-output/U{wildcards.wind_speed}/run_SWAN.sh U{wildcards.wind_speed}"
+    run:
+        if not win:
+            shell("data/4-output/U{wildcards.wind_speed}/run_SWAN.sh U{wildcards.wind_speed}")
+        else:
+             shell("cd data/4-output/U{wildcards.wind_speed} && copy U{wildcards.wind_speed}.swn INPUT && call ..\\..\\..\\bin\\swan_4131A_1_del_w64_i18_omp.exe ")
 
 rule create_sims:
     input:
