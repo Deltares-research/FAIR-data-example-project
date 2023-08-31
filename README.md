@@ -56,9 +56,11 @@ Version of your code and data
 GIT is used as version control system for the scripts. DVC is applied as version control system for the data.
 
 To get a clone of this repositry use:
+
 `git clone https://github.com/Deltares/FAIR-data-example-project FAIR-data-example-project `
 
 To update the data from the n-drive use:
+
 `dvc pull`
 
 
