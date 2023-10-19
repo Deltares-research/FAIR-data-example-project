@@ -2,20 +2,20 @@ Demo project FAIR-data with cluster
 ==============================
 
 
-This is a dummy project to demonstrate the Deltares FAIR-data Cookbook. The fours steps, scripting, Folder Structure, version control and Workflow, are included in this exmaple. Note that it is a dummy project. So no realistic calculations are performed.
+This is a dummy project to demonstrate the Deltares FAIR-data Cookbook. The fours steps, 1) scripting, 2) Folder Structure, 3) version control and 4) Workflow, are included in this example. Note that it is a dummy project. So no realistic calculations are performed. More information about the FAIR cookbook is available at the Deltares wiki.
 
 Both a workflow for the H6 cluster and a workflow to run locally are available.
 
 
-Scripting
+Scripting environment
 --------------------
 To apply the cookbook Python is required. 
 
-To install the required packages a requirements file is pressent. To install the package with pip:
+To install the required packages a requirements file is pressent. To install the package with pip run the following command in the terminal:
 
 `pip install -r requirements.txt`
 
-Alternatively, conda can be used:
+Alternatively, run the following command if anaconda is used:
 
 `conda install --file requirements.txt`
 
