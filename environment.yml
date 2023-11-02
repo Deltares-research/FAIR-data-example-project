@@ -1,0 +1,12 @@
+name: fair-data-course
+
+dependencies:
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - mako
+  - pip:
+    - cookiecutter
+    - snakemake
+    - dvc
