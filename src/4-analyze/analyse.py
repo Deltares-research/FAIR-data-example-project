@@ -16,10 +16,13 @@ else:
 
 data = np.loadtxt(path,skiprows=7)
 
+wave_height = data[:,8]
+wave_height[wave_height<0] = 0
+
 print(data.shape)
 
 plt.figure()
-plt.plot(data[:,8])
-plt.xlabel('Output loc')
-plt.ylabel('Wave height')
+plt.plot(wave_height)
+plt.xlabel('Output location')
+plt.ylabel('Wave height [cm]')
 plt.savefig(path_fig)
