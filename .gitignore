@@ -105,3 +105,9 @@ reports/figures
 
 # temporary snakemake files
 .snakemake
+
+# pixi environment
+.pixi
+
+# VSCode
+.vscode
