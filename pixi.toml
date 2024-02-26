@@ -1,0 +1,26 @@
+[project]
+name = "FAIR-Data-example-project"
+version = "0.1"
+description = "Dummy project to demonstrate the Deltares FAIR-data Cookbook."
+authors = ["Deltares <menno.deridder@deltares.nl>", ]
+channels = ["conda-forge", "bioconda"]
+platforms = ["win-64", "linux-64"]
+license = "MIT"
+license-file = "LICENSE"
+readme = "README.md"
+homepage = "https://github.com/Deltares/FAIR-data-example-project"
+documentation = "https://github.com/Deltares/FAIR-data-example-project"
+repository = "https://github.com/Deltares/FAIR-data-example-project.git"
+
+[dependencies]
+dvc = "*"
+mako = "*"
+matplotlib = "*"
+numpy = "*"
+pandas = "*"
+pip = "*"
+python = "3.10"
+snakemake = "*"
+
+[pypi-dependencies]
+cookiecutter = "*"

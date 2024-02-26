@@ -9,22 +9,33 @@ Both a workflow for the H6 cluster and a workflow to run locally are available.
 
 Scripting environment
 --------------------
-To apply the cookbook Python is required. 
+To apply the cookbook Python is required. You can install this with [pixi](https://prefix.dev/).
 
-To install the required packages a requirements file is pressent. To install the package with pip run the following command in the terminal:
+First, install pixi if you haven't done so. Open powershell:
 
-`pip install -r requirements.txt`
+```powershell
+iwr -useb https://pixi.sh/install.ps1 | iex
+```
 
-Alternatively, run the following command if anaconda is used:
+Secondly, install the python environment:
 
-`conda install --file requirements.txt`
+```powershell
+pixi install
+```
 
+Next, activate the environment in the shell:
+
+```powershell
+pixi shell
+```
 
 Folder structure of the project
 --------------------
 The project organization was created with cookiecutter. To create this structure yourself for a future project, the following command can be executed in Python:
 
-`cookiecutter gl:deltares/imod/cookiecutter-reproducible-project`
+```powershell
+cookiecutter gl:deltares/imod/cookiecutter-reproducible-project
+```
 
 This results in the following structure:
     .
@@ -59,23 +70,34 @@ GIT is used as version control system for the scripts. DVC is applied as version
 See https://deltares.github.io/iMOD-Documentation/practical_git_dvc.html for more information and installation instructions.
 
 
-To get a clone of this repositry use:
+To get a clone of this repository use:
 
-`git clone https://github.com/Deltares/FAIR-data-example-project FAIR-data-example-project `
+```powershell
+git clone https://github.com/Deltares/FAIR-data-example-project FAIR-data-example-project
+```
 
-To update the data from the n-drive use:
+To pull the data from the n-drive to your local machine use:
 
-`dvc pull`
+```powershell
+dvc pull
+```
 
 
 Manage the worklow
 --------------------
-Snakemake is used to manage the workflow. This example can be executed both on the H6 or locally. In the snakefile it can be specified whether the simulation is perfomred on windows (`win=True`) or Linux (`win=False`).
+Snakemake is used to manage the workflow. This example can be executed both on the H6 cluster or locally. In the snakefile it can be specified whether the simulation is perfomred on windows (`win=True`) or Linux (`win=False`).
 
+To run this demo project locally  run (`win=True`):
+
+```powershell
+snakemake --cores 1 --snakefile snakefile
+```
 
 To run this demo project on the h6 run (`win=False`):
 
-`snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml `
+```powershell
+snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml
+```
 
 The flag `--cluster` specifies the command to sumbit a job to a cluster. 
 With the flag `--cluster-config` additional wildcards for the cluster can be set. In this case the queue (q), job name (N) and email (M).
@@ -83,9 +105,3 @@ The maximum number of jobs is specified with `--jobs`
 
 Not all rules are submitted to the cluster. The localrules keyword in the snakefile can be used to specify the rules to be executed immediately.
 `localrules: create_sims, grid, locations`
-
-To run this demo project locally  run (`win=True`):
-
-`snakemake --cores 1 --snakefile snakefile`
-
-
