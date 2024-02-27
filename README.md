@@ -9,15 +9,33 @@ Both a workflow for the H6 cluster and a workflow to run locally are available.
 
 Scripting environment
 --------------------
-To apply the cookbook Python is required. You can install this with [pixi](https://prefix.dev/).
+First:
+- Download and install git: https://git-scm.com/download/win
+- Download and install dvc: https://dvc.org/#get-started-dvc
 
-First, install pixi if you haven't done so. Open powershell:
+To apply the cookbook Python is required, in this case we use [pixi](https://prefix.dev/).
+
+Open windows powershell
+
+Download & install pixi with the commmand (in the powershell):
 
 ```powershell
 iwr -useb https://pixi.sh/install.ps1 | iex
 ```
 
-Secondly, install the python environment:
+Change directory:
+
+```powershell
+cd FAIR-data-example-project
+```
+
+Fetch some files:
+
+```powershell
+dvc pull
+```
+
+Install the python environment:
 
 ```powershell
 pixi install
