@@ -92,7 +92,8 @@ target/
 .ipynb_checkpoints/
 
 # exclude compiled binaries
-bin/
+bin/*.exe
+!bin/*.dvc
 
 # exclude data from source control by default
 data/2-interim
