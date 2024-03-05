@@ -2,22 +2,22 @@
 
 This document provides background on the (dummy) calculations which are done as part of the FAIR-data-example-project. The workflow consists of a few steps which include a calculation with the SWAN wave model for a lake, the Volkerak Zoommeer, in the Netherlands (see Figure below). SWAN is a model which can compute wave properties (e.g. wave height) for a sea or a lake. It requires a wind field as an input and computes to wave properties. To do this it requires a grid an output location for which the output is given.
 
-![Domain of model for Volkerak Zoommeer](.\docs\volkerak.png)
+![Domain of model for Volkerak Zoommeer](/docs/volkerak.png)
 
 
 # FAIR-data-example-project
 In the example in this project we do two calculations with different constant wind speeds (20 and 30 m/s) and compute the resulting wave properties. Please note that this is a highly simplified model. For this, the following steps are added to the snakefile:
 
 1. Prepare output location (*rule*: locations)
-    - *Python script*: [create_output_locations.py](.\src\1-prepare\create_output_locations.py)
+    - *Python script*: [create_output_locations.py](/src/1-prepare/create_output_locations.py)
 2. Prepare grid (*rule*: grid)
-    - *Python script*: [create_grid.py](.\src\1-prepare\create_grid.py)
+    - *Python script*: [create_grid.py](/src/1-prepare/create_grid.py)
 3. Setup input files for all the wind conditions (*rule*: create_sims)
-    - *Python script*: [create_sims.py](.\src\1-prepare\create_sims.py)
+    - *Python script*: [create_sims.py](/src/1-prepare/create_sims.py)
 4. Compute calculations for all the wind conditions (*rule*: run)
 5. Plot the results of all the wind conditions (*rule*: analyse)
-    - *Python script*: [create_grid.py](.\src\4-analyse\analyse.py)
+    - *Python script*: [create_grid.py](/src/4-analyse/analyse.py)
 
 In every step a specific task of the workflow is executed when the previous step is successfully finished. For example, it is not possible to start a calculation when the grid files are not prepared. The snakefile includes a list of wind speeds for which the computations are performed. This means that some steps of the snakefile needs to be executed for all wind speeds. A complete overview of the workflow is shown in the Figure below.
 
-![Overview of the workflow steps in the example project](.\docs\workflow.png)
+![Overview of the workflow steps in the example project](/docs/workflow.png)
