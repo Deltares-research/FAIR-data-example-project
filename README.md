@@ -14,10 +14,9 @@ More information and instructions can be found in [Deltares documentation](https
 
 First:
 - Download and install git: https://git-scm.com/download/win
-- Download and install dvc: https://dvc.org/#get-started-dvc
 
 Then: 
-Open windows powershell
+Open *Windows Powershell*
 
 To get a clone of the repository use the following command in powershell:
 
@@ -27,7 +26,7 @@ git clone https://github.com/Deltares-research/FAIR-data-example-project.git
 
 To apply the cookbook Python is required, in this case we use [pixi](https://prefix.dev/).
 
-Download & install pixi with the command (in windows powershell):
+Download & install pixi with the command *in Windows Powershell*:
 
 ```powershell
 iwr -useb https://pixi.sh/install.ps1 | iex
@@ -37,12 +36,6 @@ Change directory (cd in short) in windows powershell with:
 
 ```powershell
 cd FAIR-data-example-project
-```
-
-To pull the data from the n-drive to your local machine use:
-
-```powershell
-dvc pull
 ```
 
 Install the python environment:
@@ -55,6 +48,12 @@ Next, activate the environment in the shell:
 
 ```powershell
 pixi shell
+```
+
+To pull the data from the n-drive to your local machine use:
+
+```powershell
+dvc pull
 ```
 
 Manage the worklow
