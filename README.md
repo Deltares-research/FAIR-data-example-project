@@ -24,6 +24,14 @@ To get a clone of the repository use the following command in powershell:
 git clone https://github.com/Deltares-research/FAIR-data-example-project.git
 ```
 
+> [!NOTE]
+>
+> Probably the first time you try a powershell command, it will throw you an
+> error about execution policies or not being able to run a script. In this case
+> use the command:
+> 
+> ``Set-ExecutionPolicy RemoteSigned -Scope CurrentUser``
+
 To apply the cookbook Python is required, in this case we use [pixi](https://prefix.dev/).
 
 Download & install pixi with the command *in Windows Powershell*:
