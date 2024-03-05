@@ -1,4 +1,6 @@
 [core]
-    remote = myremote
+    remote = remote_joeri
 ['remote "myremote"']
     url = n:\Deltabox\Bulletin\ridde_mo\FAIR-data-example\
+['remote "remote_joeri"']
+    url = n:\Deltabox\Bulletin\engelen\FAIR-data-example
