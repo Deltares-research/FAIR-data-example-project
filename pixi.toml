@@ -21,6 +21,7 @@ pandas = "*"
 pip = "*"
 python = "3.10"
 snakemake = "*"
+netcdf4 = ">=1.6.5,<1.7"
 
 [pypi-dependencies]
 cookiecutter = "*"
