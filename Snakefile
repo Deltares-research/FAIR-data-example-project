@@ -1,5 +1,5 @@
 import os
-
+from pathlib import Path
 ####SETTINGS####
 
 localrules: create_sims, grid, locations # these rules are not submitted
@@ -8,6 +8,8 @@ localrules: create_sims, grid, locations # these rules are not submitted
 wind_speed_list           = [30, 20]
 
 win = True
+
+root = Path(r'.')
 
 ####End result####
 

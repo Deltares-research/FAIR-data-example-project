@@ -1,18 +1,11 @@
-Demo project FAIR-data with cluster
-==============================
+# Demo project FAIR-data
+This is a dummy project to demonstrate the Deltares [FAIR-data Cookbook](https://publicwiki.deltares.nl/display/FAIR/Checklist+Reproducible+Numerical+Modelling). Note that it is a dummy project. So no realistic calculations are performed. More information about the FAIR cookbook is available at the Deltares wiki. This dummy project is meant to get a basic understanding and working knowledge of version control for scripts and data, workflow management and sensible folder structure. For this we use GIT, DVC, Snakemake and Cookiecutter. More information and instructions can be found in [Deltares documentation](https://deltares.github.io/iMOD-Documentation\practical_git_dvc.html) and other online sources, but for the practical example the instructions below will suffice.
 
 
-This is a dummy project to demonstrate the Deltares FAIR-data Cookbook. Note that it is a dummy project. So no realistic calculations are performed. More information about the FAIR cookbook is available at the Deltares wiki.
+## Version control and retrieving the repository
+GIT is used as version control system for the scripts.
 
-Both a workflow for the H6 cluster and a workflow to run locally are available.
-
-
-Version control, retrieving the repository and scripting environment
---------------------
-GIT is used as version control system for the scripts. DVC is applied as version control system for the data.
-More information and instructions can be found in [Deltares documentation](https://deltares.github.io/iMOD-Documentation\practical_git_dvc.html) and other online sources, but for the practical example the instructions below will suffice.
-
-First:
+First, if you do not have git already installed:
 - Download and install git: https://git-scm.com/download/win
 
 Then: 
@@ -32,7 +25,8 @@ git clone https://github.com/Deltares-research/FAIR-data-example-project.git
 > 
 > ``Set-ExecutionPolicy RemoteSigned -Scope CurrentUser``
 
-To apply the cookbook Python is required, in this case we use [pixi](https://prefix.dev/).
+## Scripting environment
+To be able to run this dummy project Python is required, in this case we use [pixi](https://prefix.dev/) to install a Python environment and all the required dependencies.
 
 Download & install pixi with the command *in Windows Powershell*:
 
@@ -52,51 +46,16 @@ Install the python environment:
 pixi install
 ```
 
-Next, activate the environment in the shell:
+## Data version control
+Dcv is used as a data version control system for the data that is required for this dummy project. This provides Git-like data version control to keep track of changes in data and to share data with colleagues.
 
-```powershell
-pixi shell
-```
+## Manage the worklow
+Snakemake is used to manage the workflow. These are managed in a single [snakefile](Snakefile)
+Individual steps (e.g. script/shell command) are added as Snakemake *"rules"*. Each rule defines which input and output is required and generated in each step. Based on this snakemake determines the order in which multiple rules need to be executed.  
 
-To pull the data from the n-drive to your local machine use:
 
-```powershell
-dvc pull
-```
-
-Manage the worklow
---------------------
-Snakemake is used to manage the workflow. This example can be executed both on the H6 cluster or locally. In the snakefile it can be specified whether the simulation is perfomred on windows (`win=True`) or Linux (`win=False`).
-
-To run this demo project locally  run (`win=True`):
-
-```powershell
-snakemake --cores 1 --snakefile snakefile
-```
-
-To run this demo project on the h6 run (`win=False`):
-
-```powershell
-snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml
-```
-
-The flag `--cluster` specifies the command to sumbit a job to a cluster. 
-With the flag `--cluster-config` additional wildcards for the cluster can be set. In this case the queue (q), job name (N) and email (M).
-The maximum number of jobs is specified with `--jobs`
-
-Not all rules are submitted to the cluster. The localrules keyword in the snakefile can be used to specify the rules to be executed immediately.
-`localrules: create_sims, grid, locations`
-
-Folder structure of the project
---------------------
-The project organization was created with cookiecutter. To create this structure yourself for a future project, the following command can be executed in Python:
-
-```powershell
-cookiecutter gl:deltares/imod/cookiecutter-reproducible-project
-```
-
-This results in the following structure:
-    .
+## Folder structure of the project
+Cookiecutter is used to create a standardized template for a folder structure for projects. Below is an example of such a template created using Cookiecutter:
     
     ├── AUTHORS.md
     ├── LICENSE
@@ -122,5 +81,6 @@ This results in the following structure:
         └── 5-visualize     <- Scripts for visualisation of your results, from 5-visualization to ./report/figures.
 
 
-
+## Explanation of the project
+In this dummy project some very basic calculations are done using the SWAN wave model. For a more detailed explanation, read [TECHNICAL.md](/TECHNICAL.md).
 

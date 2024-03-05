@@ -21,3 +21,40 @@ In the example in this project we do two calculations with different constant wi
 In every step a specific task of the workflow is executed when the previous step is successfully finished. For example, it is not possible to start a calculation when the grid files are not prepared. The snakefile includes a list of wind speeds for which the computations are performed. This means that some steps of the snakefile needs to be executed for all wind speeds. A complete overview of the workflow is shown in the Figure below.
 
 ![Overview of the workflow steps in the example project](/docs/workflow.png)
+
+# Bonus:
+### Running snakemake locally and on the h6 cluster
+
+It is possible to run a workflow locally and on the H6 cluster. This can be achieved by specifying in the snakefile whether to run on Windows (`win=True`) or on Linux (`win=False`).
+
+To run this demo project locally run (`win=True`):
+
+```powershell
+snakemake -c1
+```
+Snakemake by default looks for a snakefile in the directory. It is also possible to specify the name of a snakefile to run:
+
+```powershell
+snakemake --cores 1 --snakefile snakefile
+```
+
+To run this demo project on the h6 run (`win=False`):
+
+```powershell
+snakemake --cores 1 --cluster "qsub -q {cluster.q} -N {cluster.N} -M {cluster.M}" --jobs 4 --cluster-config config/cluster.yaml
+```
+
+The flag `--cluster` specifies the command to sumbit a job to a cluster. 
+With the flag `--cluster-config` additional wildcards for the cluster can be set. In this case the queue (q), job name (N) and email (M).
+The maximum number of jobs is specified with `--jobs`
+
+Not all rules are submitted to the cluster. The localrules keyword in the snakefile can be used to specify the rules to be executed immediately.
+`localrules: create_sims, grid, locations`
+
+
+### Using a standard folder structure
+In Deltares or with colleagues who are familiar, some standardized project templates may already be available. An example of of such a template is available from our Groundwater management department. This template can be created by:
+
+```powershell
+cookiecutter gl:deltares/imod/cookiecutter-reproducible-project
+```
