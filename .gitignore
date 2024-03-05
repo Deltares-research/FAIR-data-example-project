@@ -112,3 +112,6 @@ reports/figures
 
 # VSCode
 .vscode
+
+# Model results
+reports/*.png
