@@ -16,6 +16,8 @@ root = Path(r'.')
 rule all:
     input:
         path_fig=expand("reports/U{wind_speed}.png",  wind_speed=wind_speed_list),
+
+
 rule analyse:
     input:
         path="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
@@ -23,6 +25,7 @@ rule analyse:
         path_fig="reports/U{wind_speed}.png"
     script:
         os.path.join('src','4-analyze','analyse.py')
+
 
 rule run:
     input:
@@ -35,7 +38,8 @@ rule run:
         if not win:
             shell("data/4-output/U{wildcards.wind_speed}/run_SWAN.sh U{wildcards.wind_speed}")
         else:
-             shell("cd data/4-output/U{wildcards.wind_speed} && copy U{wildcards.wind_speed}.swn INPUT && call ..\\..\\..\\bin\\swan_4131A_1_del_w64_i18_omp.exe ")
+            shell("cd data/4-output/U{wildcards.wind_speed} && copy U{wildcards.wind_speed}.swn INPUT && call ..\\..\\..\\bin\\swan_4131A_1_del_w64_i18_omp.exe ")
+
 
 rule create_sims:
     input:
@@ -46,7 +50,6 @@ rule create_sims:
         path_sims=expand("data/4-output/U{wind_speed}/U{wind_speed}.swn",  wind_speed=wind_speed_list)
     script:
         os.path.join('src','1-prepare','create_sims.py')
-
 
 
 rule grid:
