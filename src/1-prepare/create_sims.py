@@ -9,7 +9,7 @@ debug = False
 
 if debug:
     path_sims = os.path.join('..','..','data','4-output')
-    path_template        = os.path.join('..','..','config','template')
+    path_template = os.path.join('..','..','config','template')
 else: 
     path_sims = snakemake.output.path_sims
     path_template = snakemake.input.path_template

@@ -1,11 +1,10 @@
-import os
 from pathlib import Path
 ####SETTINGS####
 
 localrules: create_sims, grid, locations # these rules are not submitted
 
 ## TODO this list also in the script create sims. How to access this list in a python script?
-wind_speed_list           = [30, 20]
+wind_speed_list = [30, 20]
 
 win = True
 
@@ -20,17 +19,26 @@ rule all:
 
 rule analyse:
     input:
-        path="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
+        path="data/4-output/U{wind_speed}/U{wind_speed}_p1_cleaned.tab"
     output:
         path_fig="reports/U{wind_speed}.png"
     script:
-        os.path.join('src','4-analyze','analyse.py')
+        root/r'src/4-analyze/analyse.py'
+
+
+rule remove_nodata:
+    input:
+        data_path=root/'data/4-output/U{wind_speed}/U{wind_speed}_p1.tab'
+    output:
+        data_path=root/'data/4-output/U{wind_speed}/U{wind_speed}_p1_cleaned.tab'
+    script:
+        root/r'src/4-analyze/remove_nodata.py'
 
 
 rule run:
     input:
-        output_bot=os.path.join('data','3-input','bed.bot'),
-        output_p1=os.path.join('data','3-input','p1.xyn'),
+        output_bot=root/r'data/3-input/bed.bot',
+        output_p1=root/r'data/3-input/p1.xyn',
         path_sims=expand("data/4-output/U{wind_speed}/U{wind_speed}.swn",  wind_speed=wind_speed_list)
     output:
         res="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
@@ -43,32 +51,32 @@ rule run:
 
 rule create_sims:
     input:
-        bot=os.path.join('data','3-input','bed.bot'),
-        p1=os.path.join('data','3-input','p1.xyn'),
-        path_template = os.path.join('config','template')
+        bot=root/r'data/3-input/bed.bot',
+        p1=root/r'data/3-input/p1.xyn',
+        path_template = root/r'config/template'
     output:
         path_sims=expand("data/4-output/U{wind_speed}/U{wind_speed}.swn",  wind_speed=wind_speed_list)
     script:
-        os.path.join('src','1-prepare','create_sims.py')
+        root/r'src/1-prepare/create_sims.py'
 
 
 rule grid:
     input:
-        path_bot=os.path.join('data','1-external','bed.bot'),
-        path_fxw=os.path.join('data','1-external','obs.fxw'),
+        path_bot=root/r'data/1-external/bed.bot',
+        path_fxw=root/r'data/1-external/obs.fxw',
     output:
-        output_bot=os.path.join('data','3-input','bed.bot'),
-        output_fxw=os.path.join('data','3-input','obs.fxw'),
+        output_bot=root/r'data/3-input/bed.bot',
+        output_fxw=root/r'data/3-input/obs.fxw',
     script:
-        os.path.join('src','1-prepare','create_grid.py')
+        root/r'src/1-prepare/create_grid.py'
 
 
 rule locations:
     input:
-        path_p1=os.path.join('data','1-external','p1.xyn'),
-        path_p2=os.path.join('data','1-external','p2.xyn'),
+        path_p1=root/r'data/1-external/p1.xyn',
+        path_p2=root/r'data/1-external/p2.xyn',
     output:
-        output_p1=os.path.join('data','3-input','p1.xyn'),
-        output_p2=os.path.join('data','3-input','p2.xyn'),
+        output_p1=root/r'data/3-input/p1.xyn',
+        output_p2=root/r'data/3-input/p2.xyn',
     script:
-        os.path.join('src','1-prepare','create_output_locations.py')
+        root/r'src/1-prepare/create_output_locations.py'
