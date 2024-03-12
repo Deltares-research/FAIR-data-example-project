@@ -22,7 +22,9 @@ In every step a specific task of the workflow is executed when the previous step
 
 ![Overview of the workflow steps in the example project](/docs/workflow.png)
 
-# Bonus:
+Now we can try if we can run the project and do a small exercise with it. The steps to follow can be found in [EXERCISE.md](/EXERCISE.md).
+
+# Bonus information:
 ### Running snakemake locally and on the h6 cluster
 
 It is possible to run a workflow locally and on the H6 cluster. This can be achieved by specifying in the snakefile whether to run on Windows (`win=True`) or on Linux (`win=False`).
