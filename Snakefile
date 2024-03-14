@@ -14,13 +14,22 @@ win = True
 rule all:
     input:
         path_fig=expand("reports/U{wind_speed}.png",  wind_speed=wind_speed_list),
+
 rule analyse:
     input:
-        path="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
+        path="data/4-output/U{wind_speed}/U{wind_speed}_p1_cleaned.tab"
     output:
         path_fig="reports/U{wind_speed}.png"
     script:
         os.path.join('src','4-analyze','analyse.py')
+
+rule remove_nodata:
+    input:
+        data_path="data/4-output/U{wind_speed}/U{wind_speed}_p1.tab"
+    output:
+        data_path="data/4-output/U{wind_speed}/U{wind_speed}_p1_cleaned.tab"
+    script:
+        os.path.join('src','4-analyze','remove_nodata.py')        
 
 rule run:
     input:
