@@ -36,7 +36,7 @@ Add a Python script "remove_nodata.py" to the [snakefile](Snakefile) to produce 
 - Finally, you can run the Snakefile again and check the updated figures.
 
 > [!TIP]
-> If you do not succeed you can see all the changes that were necessary to add the rule to the Snakefile. We have put the solution in a branch (exercise) and created a [pull request](https://github.com/Deltares-research/FAIR-data-example-project/pull/5/files) on the remote repository. Here we compare the changes that have been made to the Snakefile in order to include our new rule in the workflow.
+> If you do not succeed you can see all the changes that were necessary to add the rule to the Snakefile. We have put the solution in a branch (exercise) and created a [pull request](https://github.com/Deltares-research/FAIR-data-example-project/pull/6/files) on the remote repository. Here we compare the changes that have been made to the Snakefile in order to include our new rule in the workflow.
 
 
 # Exercise 2
